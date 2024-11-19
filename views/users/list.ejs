@@ -1,23 +1,23 @@
 <%- include("includes/header"); %>
 
 <script>
-
     function confirmar(mensagem) {
-        console.log(event)
+        console.log(event);
         const result = confirm(mensagem);
 
         if (!result) {
             return false;
         }
     }
-
 </script>
 
 <div class="container">
     <h3>Lista de Usuários</h3>
 
     <div>
-        <a type="button" class="btn btn-primary" href="/users/create/">Adicionar Usuário</a>
+        <a type="button" class="btn btn-primary" href="/users/create/"
+            >Adicionar Usuário</a
+        >
     </div>
     <table class="table">
         <thead>
@@ -35,20 +35,43 @@
                 <td><%= user.email %></td>
                 <td><%= user.active ? "Sim" : "Não" %></td>
                 <td>
-                    <form action="/users/update-status/<%= user.id %>" method="POST" style="display: inline-block" onsubmit="return confirmar('Mudar status da tarefa?')">
-                        <input type="hidden" name="done" value="<%= user.done %>">
-                        <button type="submit" class="btn btn-warning">Status</button>
+                    <form
+                        action="/users/update-status/<%= user.id %>"
+                        method="POST"
+                        style="display: inline-block"
+                        onsubmit="return confirmar('Mudar status do usuário?')"
+                    >
+                        <input
+                            type="hidden"
+                            name="done"
+                            value="<%= user.done %>"
+                        />
+                        <button type="submit" class="btn btn-warning">
+                            Status
+                        </button>
                     </form>
-                    <a type="button" class="btn btn-success" href="/users/edit/<%= user.id %>">Editar</a>
-                    <form action="/users/remove/<%= user.id %>" method="POST" style="display: inline-block" onsubmit="return confirmar('Tem certeza que deseja excluir essa tarefa?')">
-                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    <a
+                        type="button"
+                        class="btn btn-success"
+                        href="/users/edit/<%= user.id %>"
+                        >Editar</a
+                    >
+                    <form
+                        action="/users/remove/<%= user.id %>"
+                        method="POST"
+                        style="display: inline-block"
+                        onsubmit="return confirmar('Tem certeza que deseja excluir esse usuário?')"
+                    >
+                        <button type="submit" class="btn btn-danger">
+                            Excluir
+                        </button>
                     </form>
                 </td>
             </tr>
             <% } %>
         </tbody>
     </table>
-
 </div>
 
 <%- include("includes/footer"); %>
+
