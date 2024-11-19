@@ -72,7 +72,7 @@ function UserController() {
     const user = {
       title: req.body.title,
       description: req.body.description,
-      done: req.body.done === '1' ? true : false
+      active: req.body.active === '1' ? true : false
     }
 
     User.update(user, { where: { id: id } })
@@ -84,7 +84,7 @@ function UserController() {
     const id = req.params.id
 
     const user = {
-      done: req.body.done === '0' ? true : false,
+      active: req.body.active === '0' ? true : false,
     }
 
  	  User.update(user, { where: { id: id } })
