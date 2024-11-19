@@ -23,7 +23,6 @@ const User = sequelize.define('User', {
   },
   active: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true
   },
 }, table_options);
 
