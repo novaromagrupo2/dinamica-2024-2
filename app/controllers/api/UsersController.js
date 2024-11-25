@@ -6,12 +6,12 @@ function UserController() {
   async function list(req, res) {
 
     try {
-      const users = await User.findAll({ 
+      const users = await User.findAll({
         attributes: { exclude: ['password'] },
-        raw: true 
+        raw: true
       })
       res.status(200).json(users);
-      
+
     } catch (error) {
       res.status(500).json({
         message: "Erro ao listar usuários"
@@ -39,15 +39,16 @@ function UserController() {
         message: "Erro ao localizar usuário"
       });
     }
-    
+
   }
 
   async function save(req, res) {
-    
-    const body = req.body;
 
-    if (body.password != body.confirm_password) {
-      return res.status(500).json({
+    const body = req.body;
+    // Alterando para comparação de valor e tipo
+    // Erro 400 ao tentar criar usuário com senha e confirmar senha diferentes
+    if (body.password !== body.confirm_password) {
+      return res.status(400).json({
         message: "Os campos senha e confirmar senha são diferentes"
       });
     }
@@ -66,7 +67,7 @@ function UserController() {
     } catch (error) {
       return res.status(500).json({
         message: "Erro ao criar usuário"
-      });      
+      });
     }
   }
 
@@ -124,7 +125,7 @@ function UserController() {
         console.log(error)
         res.status(500).json({ error: 'Erro durante a autenticação' });
       }
-      
+
     }
 
     return {
