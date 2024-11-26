@@ -4,8 +4,16 @@
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
-
   font-family: 'Roboto', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    padding: 0;
+}
+
+li{
+    list-style: none;
 }
 
 .header {
@@ -37,12 +45,42 @@
 }
 
 .footer {
-    height: 100px;
-    background-color: silver;
-    padding: 10px;
+    height: auto;
+    background-color: #b4b4b4;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer .logo img{
+    width: 128px;
+    height: 128px;
+}
+
+.footer h1{
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.footer a{
+    color: #111;
+}
+
+.footer .social-media{
+    display: flex;
+    gap: 10px;
 }
 
 .concluido td:not(:last-child) {
     text-decoration-line: line-through;
     text-decoration-thickness: 2px;
+}
+
+@media(max-width: 800px){
+    .footer{
+        flex-direction: column;
+        gap: 40px;
+    }
 }
