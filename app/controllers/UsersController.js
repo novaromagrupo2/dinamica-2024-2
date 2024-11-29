@@ -2,106 +2,98 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 function UserController() {
-
   function list(req, res) {
     User.findAll({ raw: true })
       .then((data) => {
-
         res.render('users/list', {
-          title: "Lista de Tarefas",
+          title: 'Lista de Usuários',
           users: data,
-        })
+        });
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   function create(req, res) {
-    res.render('users/create')
+    res.render('users/create');
   }
 
   async function save(req, res) {
-
     const body = req.body;
 
-    if (body.password != body.password_confirmation) {
+    try {
+      const user = await User.create({
+        name: body.name,
+        email: body.email,
+        password: body.password,
+        password_confirmation: body.password_confirmation, // Campo virtual
+      });
+
+      return res.redirect('/users');
+    } catch (error) {
+      console.error(error);
       res.render('users/create', {
         error: {
-          message: 'Os campos senha e confirmar senha são diferentes.'
-        }
+          message: error.message || 'Erro ao salvar o usuário. Tente novamente.',
+        },
       });
     }
-
-    const hashed_password = await bcrypt.hash(req.body.password, 10);
-
-    const user = {
-      name: req.body.name,
-      email: req.body.email,
-      password: hashed_password,
-    }
-
-    try {
-      await User.create(user);
-      res.redirect('/users');
-    } catch (error) {
-      console.log(error);
-    }
   }
+
 
   function remove(req, res) {
     const id = req.params.id;
 
-    User.destroy({ where: { id: id } })
-      .then(res.redirect('/users'))
-      .catch((err) => console.log(err))
+    User.destroy({ where: { id } })
+      .then(() => res.redirect('/users'))
+      .catch((err) => console.log(err));
   }
 
   function edit(req, res) {
-    const id = req.params.id
+    const id = req.params.id;
 
-    User.findOne({ where: { id: id }, raw: true })
+    User.findOne({ where: { id }, raw: true })
       .then((data) => {
-        res.render('users/edit', { user: data })
+        res.render('users/edit', { user: data });
       })
-      .catch((err) => console.log())
+      .catch((err) => console.log(err));
   }
 
   function update(req, res) {
     console.log(req.body);
-    const id = req.body.id
+    const id = req.body.id;
 
     const user = {
-      title: req.body.title,
-      description: req.body.description,
-      active: req.body.active === '1' ? true : false
-    }
+      name: req.body.name,
+      email: req.body.email,
+      active: req.body.active === '1',
+    };
 
-    User.update(user, { where: { id: id } })
-      .then(res.redirect('/users'))
-      .catch((err) => console.log(err))
+    User.update(user, { where: { id } })
+      .then(() => res.redirect('/users'))
+      .catch((err) => console.log(err));
   }
 
   function updateStatus(req, res) {
-    const id = req.params.id
+    const id = req.params.id;
 
     const user = {
-      active: req.body.active === '0' ? true : false,
-    }
+      active: req.body.active === '0',
+    };
 
- 	  User.update(user, { where: { id: id } })
-      .then(res.redirect('/users'))
-      .catch((err) => console.log())
-    }
+    User.update(user, { where: { id } })
+      .then(() => res.redirect('/users'))
+      .catch((err) => console.log(err));
+  }
 
-    return {
-      create,
-      save,
-      list,
-      remove,
-      edit,
-      update,
-      updateStatus,
-    }
-
+  return {
+    create,
+    save,
+    list,
+    remove,
+    edit,
+    update,
+    updateStatus,
+  };
 }
 
 module.exports = UserController();

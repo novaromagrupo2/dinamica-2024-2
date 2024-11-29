@@ -15,7 +15,7 @@ describe('UserController', () => {
           name: 'Test User',
           email: 'test@example.com',
           password: 'password123',
-          confirm_password: 'password123'
+          password_confirmation: 'password123'
         }
       };
       res = {
@@ -51,7 +51,7 @@ describe('UserController', () => {
     });
 
     it('should return an error if passwords do not match', async () => {
-      req.body.confirm_password = 'different_password';
+      req.body.password_confirmation = 'different_password';
 
       await UserController.save(req, res);
 

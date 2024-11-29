@@ -1,5 +1,5 @@
 const useUsersRepository = require("../../app/repositories/UsersRepository");
-const usersRepository = useUsersRepository(); 
+const usersRepository = useUsersRepository();
 
 test('Listando users', async () => {
   const users = await usersRepository.list();
