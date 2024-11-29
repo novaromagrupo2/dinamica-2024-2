@@ -7,9 +7,9 @@ function UserController() {
     User.findAll({ raw: true })
       .then((data) => {
 
-        res.render('users/list', { 
+        res.render('users/list', {
           title: "Lista de Tarefas",
-          users: data, 
+          users: data,
         })
       })
       .catch((err) => console.log(err))
@@ -20,10 +20,10 @@ function UserController() {
   }
 
   async function save(req, res) {
-    
+
     const body = req.body;
 
-    if (body.password != body.confirm_password) {
+    if (body.password != body.password_confirmation) {
       res.render('users/create', {
         error: {
           message: 'Os campos senha e confirmar senha são diferentes.'
@@ -43,7 +43,7 @@ function UserController() {
       await User.create(user);
       res.redirect('/users');
     } catch (error) {
-      console.log(error);      
+      console.log(error);
     }
   }
 

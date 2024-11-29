@@ -47,22 +47,23 @@ function UserController() {
     const body = req.body;
     // Alterando para comparação de valor e tipo
     // Erro 400 ao tentar criar usuário com senha e confirmar senha diferentes
-    if (body.password !== body.confirm_password) {
+    if (body.password !== body.password_confirmation) {
       return res.status(400).json({
         message: "Os campos senha e confirmar senha são diferentes"
       });
     }
 
-    const hashed_password = await bcrypt.hash(req.body.password, 10);
+    try{
+      const hashed_password = await bcrypt.hash(req.body.password, 10);
 
-    const user = {
-      name: req.body.name,
-      email: req.body.email,
-      password: hashed_password,
-    }
+      const user = {
+        name: req.body.name,
+        email: req.body.email,
+        password: hashed_password,
+      };
 
-    try {
       const user_created = await User.create(user);
+      
       return res.status(201).json(user_created);
     } catch (error) {
       return res.status(500).json({
