@@ -1,0 +1,56 @@
+<%- include("includes/header"); %>
+
+<script>
+    function confirmar(mensagem) {
+        const result = confirm(mensagem);
+        if (!result) {
+            return false;
+        }
+    }
+</script>
+
+<div class="container">
+    <h3 class="title">Lista de Postagens</h3>
+
+    <div>
+        <a type="button" class="btn primary-button" href="/blog/create/">Adicionar Postagem</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" style="min-width: 200px">Título</th>
+                <th scope="col" style="min-width: 300px">Conteúdo</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Data de Publicação</th>
+                <th scope="col">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(const post of posts) { %>
+            <tr>
+                <!-- Link para visualização da postagem -->
+                <td><a href="/blog/<%= post.id %>"><%= post.title %></a></td>
+                <td><%= post.content.substring(0, 100) %>...</td>
+                <td><%= post.author %></td>
+                <td>
+                    <%= post.publishedAt
+                        ? new Date(post.publishedAt).toLocaleDateString()
+                        : "Não publicada" %>
+                </td>
+                <td>
+                    <form
+                        action="/blog/remove/<%= post.id %>"
+                        method="POST"
+                        style="display: inline-block"
+                        onsubmit="return confirmar('Tem certeza que deseja excluir esta postagem?')"
+                    >
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<%- include("includes/footer"); %>
