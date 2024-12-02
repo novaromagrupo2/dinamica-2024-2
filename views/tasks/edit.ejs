@@ -2,7 +2,7 @@
 
 <div class="container">
 
-    <h3>Editar Tarefa</h3>
+    <h3 class="title">Editar Tarefa</h3>
     <hr>
 
     <form method="POST" action="/tasks/update">
@@ -22,7 +22,7 @@
           <input type="checkbox" class="form-check-input" id="concluido" name="done" value="1" <%= task.done == 1 ? 'checked' : '' %>>
           <label class="form-check-label" for="concluido">Concluído </label>
         </div>
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" class="btn primary-button">Salvar</button>
         <a href="/tasks" class="btn btn-secondary">Cancelar</a>
       </form>
     

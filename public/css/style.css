@@ -1,22 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+:root {
+    --primary-color: #20c997;
+    --text-color: #fff;
+}
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.title {
+    color: var(--primary-color);
+    text-align: center;
+}
+
 * {
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
-
   font-family: 'Roboto', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    padding: 0;
+}
+
+li{
+    list-style: none;
 }
 
 .header {
     height: 150px;
-    background-color: tomato;
+    background-color: indigo;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .header .menu {
+    
     display: flex;
     justify-content: space-around;
     gap: 30px;
@@ -24,7 +48,7 @@
 }
 
 .header .menu a {
-    color: white;
+    color: var(--primary-color) !important;
     text-transform: uppercase;
     text-decoration: none;
     font-size: 24px;
@@ -37,12 +61,54 @@
 }
 
 .footer {
-    height: 100px;
-    background-color: silver;
-    padding: 10px;
+    height: auto;
+    background-color: #b4b4b4;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer .logo img{
+    width: 128px;
+    height: 128px;
+}
+
+.footer h1{
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.footer a{
+    color: #111;
+}
+
+.footer .social-media{
+    display: flex;
+    gap: 10px;
 }
 
 .concluido td:not(:last-child) {
     text-decoration-line: line-through;
     text-decoration-thickness: 2px;
+}
+
+@media(max-width: 800px){
+    .footer{
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+/* Index */
+.home-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.home-logo img{
+    width: 150px;
+    height: 150px;
 }
